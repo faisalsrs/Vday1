@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>Vday Gift List</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css '%}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css '%}">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css"
+        media="screen">
+
+</head>
+
+<body>
+    <div class="bg">
+        <p class="py-5 text-center"></p>
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                            <div class="collapse navbar-collapse" id="navbarsExample04">
+                                <ul class="navbar-nav mr-auto">
+                                    <li class="nav-item active">
+                                        <a class="nav-link" href="/register"> Create a Gift List </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/register">Login</a>
+                                    </li>
+                                    <li class=" nav-item">
+                                        <a class="nav-link" href="/ideas">Top Gift Ideas</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/unique">Unique Presents</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="col-sm">
+                        <a href="index.html"><img style="width: 100px ; height: 100px"
+                                src="{% static 'images/Vday_Wishlist_Logo.png' %}" alt="#" />
+                        </a>
+                    </div>
+                    <div class="col-sm">
+                        <a class="nav-link" href="/grantor_login">Did someone send you a Gift List Already?</a>
+                        <form action="/grantor_login" method="POST">
+                            {%csrf_token%}
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="email" class="sr-only">Email</label>
+                                <input type="email" name="email2" class="form-control" id="email"
+                                    placeholder="Email@Email.com">
+                            </div>
+                            <button type="submit" class="btn btn-danger mb-2">I Got a List</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <container>
+            <div class="row">
+                <div class="col">
+                    <span class="navbar-text">
+                        <h1>Welcome, {{user.first_name}} {{user.last_name}}!</h1>
+                    </span>
+                </div>
+                <div class="col-6">
+                    <a href="/new_gift">
+                        <h1>Add a New Gift!</h1>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            <h1>Your Gift List:</h1>
+            <div class="col py-3 px-lg-5 border bg-light">
+                <table class="table table-bordered">
+                    <thead class="table=danger">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Gift Description</th>
+                            <th scope="col">Sugar Daddy's Email</th>
+                            <th scope="col">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for gift in my_gifts %}
+                        <tr>
+                            <th scope="row">{{gift.id}}</th>
+                            <td>{{gift.item}}</td>
+                            <td>{{gift.description}}</td>
+                            <td>{{gift.email2}}</td>
+                            <td><a href="/gift/delete/{{gift.id}}">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </container>
+    </div>
+</body>
